@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Visual Testing</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        function disablePage() {
+            /**
+             * Disable the page by showing an overlay and disabling all buttons.
+             */
+            document.getElementById("overlay").style.display = "block";
+            document.querySelectorAll("button").forEach(button => button.disabled = true);
+        }
+
+        function enablePage() {
+            /**
+             * Enable the page by hiding the overlay and enabling all buttons.
+             */
+            document.getElementById("overlay").style.display = "none";
+            document.querySelectorAll("button").forEach(button => button.disabled = false);
+        }
+
+        function addRow() {
+            /**
+             * Add a new row for URL and reference screenshot input.
+             */
+            var container = document.getElementById("url-container");
+            var newRow = document.createElement("div");
+            newRow.className = "url-row";
+            newRow.innerHTML = `
+                <input type="text" name="url" placeholder="Enter URL" required>
+                <input type="file" name="reference" accept="image/png" required>
+                <button type="button" onclick="removeRow(this)">-</button>
+            `;
+            container.appendChild(newRow);
+        }
+
+        function removeRow(button) {
+            /**
+             * Remove a row for URL and reference screenshot input.
+             */
+            var row = button.parentElement;
+            row.remove();
+        }
+
+        function handleSubmit(event) {
+            /**
+             * Handle form submission by disabling the "Compare" button
+             * and updating its text to "Comparing...".
+             */
+            event.preventDefault(); // Prevent default form submission
+            const compareButton = document.querySelector('button[type="submit"]');
+            compareButton.textContent = "Comparing...";
+            compareButton.disabled = true;
+
+            // Submit the form using AJAX
+            const form = event.target;
+            const formData = new FormData(form);
+
+            fetch(form.action, {
+                method: form.method,
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.blob(); // Handle the response (e.g., download the file)
+                } else {
+                    throw new Error("Failed to complete the comparison.");
+                }
+            })
+            .then(blob => {
+                // Create a link to download the file
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.style.display = 'none';
+                a.href = url;
+                a.download = 'Visual_Test_Reports.zip';
+                document.body.appendChild(a);
+                a.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(error => {
+                alert(error.message);
+            })
+            .finally(() => {
+                // Re-enable the button and reset its text
+                compareButton.textContent = "Compare";
+                compareButton.disabled = false;
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/cognizant_logo.jpg') }}" alt="Cognizant Logo" class="logo">
+        <h2>Vislance</h2>
+    </div>
+
+    <div class="container">
+        <h3>URL and Reference Image</h3>
+        <form name="urlForm" action="/upload" method="post" enctype="multipart/form-data" onsubmit="handleSubmit(event);">
+            <div id="url-container">
+                <div class="url-row">
+                    <input type="text" name="url" placeholder="Enter URL" required>
+                    <input type="file" name="reference" accept="image/png/jpg" required>
+                    <button type="button" onclick="addRow()">+</button>
+                </div>
+            </div>
+            <button type="submit">Compare</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,84 @@
+/* Basic styling for the body */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Styling for the header section */
+.header {
+    background-color: #0070ad;
+    padding: 20px;
+    text-align: left;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+/* Styling for the logo image */
+.logo {
+    height: 60px;
+    margin-right: 10px;
+}
+
+/* Styling for the main container */
+.container {
+    margin: 20px auto;
+    width: 50%;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+/* Styling for URL input rows */
+.url-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+/* Styling for text input fields */
+.url-row input[type="text"] {
+    flex: 2;
+    margin-right: 10px;
+}
+
+/* Styling for file input fields */
+.url-row input[type="file"] {
+    flex: 2;
+    margin-right: 10px;
+}
+
+/* Styling for buttons */
+.url-row button {
+    flex: 1;
+    background-color: #0070ad;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+}
+
+/* Hover effect for buttons */
+.url-row button:hover {
+    background-color: #005f8d;
+}
+
+/* General styling for input fields and buttons */
+input, button {
+    margin: 10px 0;
+    padding: 8px;
+    width: 95%;
+}
+
+/* Styling for the submit button */
+button[type="submit"] {
+    background-color: #0070ad;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+/* Hover effect for the submit button */
+button[type="submit"]:hover {
+    background-color: #005f8d;
+}
+
