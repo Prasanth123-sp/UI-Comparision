@@ -2,7 +2,9 @@ import os
 import zipfile
 import io
 from flask import Flask, request, render_template, send_file, send_from_directory
-from utils import take_screenshot, compare_screenshots, generate_report
+from utils import take_screenshot
+from generate_reports import generate_report
+from Gen_Ai_Comparision import compare_screenshots
 
 app = Flask(__name__, template_folder='../frontend/templates', static_folder='../frontend/static')
 
