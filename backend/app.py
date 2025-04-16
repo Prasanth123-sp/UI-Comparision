@@ -2,7 +2,7 @@ import os
 import zipfile
 import io
 from flask import Flask, request, render_template, send_file, send_from_directory
-from utils import take_screenshot
+from Automation import take_screenshot
 from generate_reports import generate_report
 from Gen_Ai_Comparision import compare_screenshots
 
