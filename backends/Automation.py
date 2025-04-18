@@ -28,4 +28,3 @@ def take_screenshot(url):
         return screenshot_path
     finally:
         driver.quit()
-

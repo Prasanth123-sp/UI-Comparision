@@ -71,4 +71,3 @@ You are a senior UI QA engineer comparing two UI screenshots. The left image rep
     except Exception as e:
         print(f"Error in comparing screenshots: {e}")
         return f"Error in comparing screenshots: {e}", None
-
