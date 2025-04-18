@@ -60,7 +60,7 @@ def upload():
         comparison_results.append(report_content)
 
     if not comparison_results:
-        return "Error: No valid comparisons could be performed.", 500
+        return "Error: No valid comparisons could be performed.", 400
 
     # Build a ZIP file containing all generated HTML reports.
     zip_buffer = io.BytesIO()
